@@ -42,7 +42,7 @@ public class Projectile : MonoBehaviour {
 			if (other.tag == "Player") {
 
 				//Slow down time
-				GameManager.gm.FixedSlowmo ();
+				GraphicHelper.Instance.Slowmo ();
 
 				other.GetComponent<CharacterController2D> ().ApplyDamage (damage);
 			}

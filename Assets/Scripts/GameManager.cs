@@ -6,7 +6,7 @@ using UnityEngine.SceneManagement;
 public class GameManager : MonoBehaviour {
 
 	// static reference to game manager so can be called from other scripts directly (not just through gameobject component)
-	public static GameManager gm;
+	public static GameManager Instance;
 
 	// levels to move to on victory and lose
 	public string levelAfterVictory;
@@ -17,11 +17,6 @@ public class GameManager : MonoBehaviour {
 	public int highscore = 0;
 	public int startLives = 3;
 	public int lives = 3;
-
-	[Range(0.0f,1.0f)]
-	public float slowmoFactor = 0.7f;
-	[Range(0.0f,1.0f)]
-	public float slowmoTime =0.2f;
 
 	// UI elements to control
 	public Text UIScore;
@@ -37,8 +32,8 @@ public class GameManager : MonoBehaviour {
 	// set things up here
 	void Awake () {
 		// setup reference to game manager
-		if (gm == null)
-			gm = this.GetComponent<GameManager>();
+		if (Instance == null)
+			Instance = this.GetComponent<GameManager>();
 
 		// setup all the variables, the UI, and provide errors if things not setup properly.
 		setupDefaults();
@@ -185,85 +180,11 @@ public class GameManager : MonoBehaviour {
 		StartCoroutine(LoadNextLevel());
 	}
 
-	//Slows down time by a set amount for a set period of time
-	//Used for collision impact
-	public void FixedSlowmo()
-	{
-		//Debug.Log ("SLOWMO ENGAGED");
-		StartCoroutine (SlowDownTime ());
-	}
-
-
-
-	// load the nextLevel after delay
-	IEnumerator SlowDownTime()
-	{
-		//Slow down time by a predefine factor
-		Time.timeScale = slowmoFactor;
-		//Debug.Log ("SLOWMO ENGAGED");
-
-		//Wait a set amount of time before going back to normal
-		yield return new WaitForSeconds(slowmoTime); 
-
-		//Debug.Log ("SLOWMO Done");
-		//Go back to normal
-		Time.timeScale = 1.0F;
-		Time.fixedDeltaTime = 0.02F * Time.timeScale;
-	}
-
 	// load the nextLevel after delay
 	IEnumerator LoadNextLevel() {
 		yield return new WaitForSeconds(3.5f); 
 		//Application.LoadLevel (levelAfterVictory);
 		SceneManager.LoadScene (levelAfterVictory);
 	}
-
-
-	public void FixedFlashingSprites(SpriteRenderer[] sprites, int numTimes, float delay, bool disable = false)
-	{
-		StartCoroutine(FlashSprites(sprites, numTimes, delay, disable));
-	}
-
-
-	/// <summary>
-	///  Coroutine to create a flash effect on all sprite renderers passed in to the function
-	/// </summary>
-	/// <param name="sprites">Sprites.</param>
-	/// <param name="numTimes">Number times to flash</param>
-	/// <param name="delay">Delay between flashes</param>
-	/// <param name="disable">if you want to disable the renderer instead of change alpha</param>
-	IEnumerator FlashSprites(SpriteRenderer[] sprites, int numTimes, float delay, bool disable) {
-		// number of times to loop
-		for (int loop = 0; loop < numTimes; loop++) {            
-			// cycle through all sprites
-			for (int i = 0; i < sprites.Length; i++) {                
-				if (disable) {
-					// for disabling
-					sprites[i].enabled = false;
-				} else {
-					// for changing the alpha
-					sprites[i].color = new Color(sprites[i].color.r, sprites[i].color.g, sprites[i].color.b, 0.5f);
-				}
-			}
-
-			// delay specified amount
-			yield return new WaitForSeconds(delay);
-
-			// cycle through all sprites
-			for (int i = 0; i < sprites.Length; i++) {
-				if (disable) {
-					// for disabling
-					sprites[i].enabled = true;
-				} else {
-					// for changing the alpha
-					sprites[i].color = new Color(sprites[i].color.r, sprites[i].color.g, sprites[i].color.b, 1);
-				}
-			}
-
-			// delay specified amount
-			yield return new WaitForSeconds(delay);
-		}
-	}
-
 
 }

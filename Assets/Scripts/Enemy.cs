@@ -169,7 +169,7 @@ public class Enemy : MonoBehaviour {
 		if ((collision.tag == "Player") && !isStunned)
 		{
 			//Slow down time
-			GameManager.gm.FixedSlowmo ();
+			GraphicHelper.Instance.Slowmo ();
 
 			CharacterController2D player = collision.gameObject.GetComponent<CharacterController2D>();
 			if (player.playerCanMove) {
@@ -236,6 +236,9 @@ public class Enemy : MonoBehaviour {
 			// switch layer to stunned layer so no collisions with the player while stunned
 			this.gameObject.layer = _stunnedLayer;
 			stunnedCheck.layer = _stunnedLayer;
+
+			SpriteRenderer[] sprites = GetComponentsInChildren<SpriteRenderer>();
+			GraphicHelper.Instance.FlashingSprites(sprites, 14, 0.1f);
 
 			// start coroutine to stand up eventually
 			StartCoroutine (Stand ());

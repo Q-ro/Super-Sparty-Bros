@@ -25,7 +25,7 @@ public class Checkpoint : MonoBehaviour {
 			// Trigger the active animation
 			_animator.SetBool ("Activated",activated);
 
-			GameManager.gm.SetCheckpoint(this.transform.position);
+			GameManager.Instance.SetCheckpoint(this.transform.position);
 
 		}
 	}

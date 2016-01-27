@@ -8,15 +8,10 @@ public class EnemyStun : MonoBehaviour {
 	{
 		if (other.gameObject.tag == "Player")
 		{
-			
-	
-
 			// tell the enemy to be stunned
 			this.GetComponentInParent<Enemy>().Stunned();
 
-
-
-			GameManager.gm.FixedSlowmo ();
+			GraphicHelper.Instance.Slowmo ();
 
 			//Make the player bounce off the player
 			other.gameObject.GetComponent<CharacterController2D>().EnemyBounce();
