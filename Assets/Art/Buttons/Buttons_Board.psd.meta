@@ -38,7 +38,7 @@ TextureImporter:
   bumpmap:
     convertToNormalMap: 0
     externalNormalMap: 0
-    heightScale: .25
+    heightScale: 0.25
     normalMapFilter: 0
   isReadable: 0
   grayScaleToAlpha: 0
@@ -58,11 +58,12 @@ TextureImporter:
   lightmap: 0
   rGBM: 0
   compressionQuality: 50
+  allowsAlphaSplitting: 0
   spriteMode: 2
   spriteExtrude: 1
   spriteMeshType: 1
   alignment: 0
-  spritePivot: {x: .5, y: .5}
+  spritePivot: {x: 0.5, y: 0.5}
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spritePixelsToUnits: 100
   alphaIsTransparency: 1
@@ -78,8 +79,18 @@ TextureImporter:
         width: 102
         height: 102
       alignment: 0
-      pivot: {x: .5, y: .5}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: 40, y: 51}
+        - {x: -28, y: 51}
+        - {x: -51, y: 24}
+        - {x: -51, y: -23}
+        - {x: -31, y: -51}
+        - {x: 41, y: -51}
+        - {x: 48, y: -39}
+        - {x: 51, y: -27}
+        - {x: 51, y: 33}
     - name: Buttons_Board_1
       rect:
         serializedVersion: 2
@@ -88,8 +99,15 @@ TextureImporter:
         width: 102
         height: 103
       alignment: 0
-      pivot: {x: .5, y: .5}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: -34, y: 51.5}
+        - {x: -51, y: 35.5}
+        - {x: -51, y: -51.5}
+        - {x: 41, y: -51.5}
+        - {x: 51, y: -42.5}
+        - {x: 51, y: 51.5}
     - name: Buttons_Board_2
       rect:
         serializedVersion: 2
@@ -98,8 +116,21 @@ TextureImporter:
         width: 324
         height: 103
       alignment: 0
-      pivot: {x: .5, y: .5}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: 159, y: -41.5}
+        - {x: 161, y: -36.5}
+        - {x: 162, y: -34.5}
+        - {x: 162, y: 51.5}
+        - {x: -145, y: 51.5}
+        - {x: -158, y: 38.5}
+        - {x: -159, y: 38.5}
+        - {x: -162, y: 35.5}
+        - {x: -162, y: -51.5}
+        - {x: 153, y: -51.5}
+        - {x: 154, y: -48.5}
+        - {x: 156, y: -46.5}
     - name: Buttons_Board_3
       rect:
         serializedVersion: 2
@@ -108,8 +139,18 @@ TextureImporter:
         width: 102
         height: 102
       alignment: 0
-      pivot: {x: .5, y: .5}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: 40, y: 51}
+        - {x: -28, y: 51}
+        - {x: -51, y: 24}
+        - {x: -51, y: -23}
+        - {x: -31, y: -51}
+        - {x: 41, y: -51}
+        - {x: 48, y: -39}
+        - {x: 51, y: -27}
+        - {x: 51, y: 33}
     - name: Buttons_Board_4
       rect:
         serializedVersion: 2
@@ -118,8 +159,16 @@ TextureImporter:
         width: 102
         height: 103
       alignment: 0
-      pivot: {x: .5, y: .5}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: 51, y: 51.5}
+        - {x: -35, y: 51.5}
+        - {x: -51, y: 35.5}
+        - {x: -51, y: -51.5}
+        - {x: 40, y: -51.5}
+        - {x: 43, y: -48.5}
+        - {x: 51, y: -34.5}
     - name: Buttons_Board_5
       rect:
         serializedVersion: 2
@@ -128,8 +177,19 @@ TextureImporter:
         width: 324
         height: 103
       alignment: 0
-      pivot: {x: .5, y: .5}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: 160, y: -36.5}
+        - {x: 162, y: -34.5}
+        - {x: 162, y: 51.5}
+        - {x: -146, y: 51.5}
+        - {x: -162, y: 35.5}
+        - {x: -162, y: -51.5}
+        - {x: 152, y: -51.5}
+        - {x: 153, y: -49.5}
+        - {x: 155, y: -47.5}
+        - {x: 158, y: -42.5}
     - name: Buttons_Board_6
       rect:
         serializedVersion: 2
@@ -138,8 +198,16 @@ TextureImporter:
         width: 102
         height: 102
       alignment: 0
-      pivot: {x: .5, y: .5}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: -41, y: 51}
+        - {x: -51, y: 47}
+        - {x: -51, y: -29}
+        - {x: -31, y: -51}
+        - {x: 32, y: -51}
+        - {x: 51, y: -44}
+        - {x: 51, y: 51}
     - name: Buttons_Board_7
       rect:
         serializedVersion: 2
@@ -148,8 +216,15 @@ TextureImporter:
         width: 102
         height: 103
       alignment: 0
-      pivot: {x: .5, y: .5}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: -51, y: 37.5}
+        - {x: -51, y: -51.5}
+        - {x: 41, y: -51.5}
+        - {x: 51, y: -42.5}
+        - {x: 51, y: 51.5}
+        - {x: -47, y: 51.5}
     - name: Buttons_Board_8
       rect:
         serializedVersion: 2
@@ -158,8 +233,20 @@ TextureImporter:
         width: 324
         height: 103
       alignment: 0
-      pivot: {x: .5, y: .5}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: 160, y: -39.5}
+        - {x: 162, y: -34.5}
+        - {x: 162, y: 51.5}
+        - {x: -145, y: 51.5}
+        - {x: -150, y: 46.5}
+        - {x: -151, y: 46.5}
+        - {x: -162, y: 35.5}
+        - {x: -162, y: -51.5}
+        - {x: 153, y: -51.5}
+        - {x: 155, y: -46.5}
+        - {x: 157, y: -44.5}
     - name: Buttons_Board_9
       rect:
         serializedVersion: 2
@@ -168,8 +255,19 @@ TextureImporter:
         width: 102
         height: 102
       alignment: 0
-      pivot: {x: .5, y: .5}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: 23, y: 51}
+        - {x: -41, y: 51}
+        - {x: -51, y: 25}
+        - {x: -51, y: -36}
+        - {x: -34, y: -51}
+        - {x: 27, y: -51}
+        - {x: 48, y: -42}
+        - {x: 51, y: -30}
+        - {x: 51, y: 26}
+        - {x: 44, y: 34}
     - name: Buttons_Board_10
       rect:
         serializedVersion: 2
@@ -178,8 +276,16 @@ TextureImporter:
         width: 102
         height: 103
       alignment: 0
-      pivot: {x: .5, y: .5}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: 51, y: 51.5}
+        - {x: -35, y: 51.5}
+        - {x: -51, y: 35.5}
+        - {x: -51, y: -51.5}
+        - {x: 41, y: -51.5}
+        - {x: 46, y: -43.5}
+        - {x: 51, y: -33.5}
     - name: Buttons_Board_11
       rect:
         serializedVersion: 2
@@ -188,8 +294,17 @@ TextureImporter:
         width: 324
         height: 104
       alignment: 0
-      pivot: {x: .5, y: .5}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: 162, y: 52}
+        - {x: -145, y: 52}
+        - {x: -162, y: 35}
+        - {x: -162, y: -52}
+        - {x: 152, y: -52}
+        - {x: 157, y: -43}
+        - {x: 159, y: -41}
+        - {x: 162, y: -35}
     - name: Buttons_Board_12
       rect:
         serializedVersion: 2
@@ -198,8 +313,16 @@ TextureImporter:
         width: 102
         height: 101
       alignment: 0
-      pivot: {x: .5, y: .5}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: -51, y: 50.5}
+        - {x: -51, y: -37.5}
+        - {x: -42, y: -50.5}
+        - {x: 32, y: -50.5}
+        - {x: 51, y: -28.5}
+        - {x: 51, y: 26.5}
+        - {x: 43, y: 50.5}
     - name: Buttons_Board_13
       rect:
         serializedVersion: 2
@@ -208,8 +331,15 @@ TextureImporter:
         width: 102
         height: 103
       alignment: 0
-      pivot: {x: .5, y: .5}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: -35, y: 51.5}
+        - {x: -51, y: 35.5}
+        - {x: -51, y: -51.5}
+        - {x: 41, y: -51.5}
+        - {x: 51, y: -36.5}
+        - {x: 51, y: 51.5}
     - name: Buttons_Board_14
       rect:
         serializedVersion: 2
@@ -218,8 +348,20 @@ TextureImporter:
         width: 324
         height: 103
       alignment: 0
-      pivot: {x: .5, y: .5}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: 160, y: -39.5}
+        - {x: 162, y: -34.5}
+        - {x: 162, y: 51.5}
+        - {x: -145, y: 51.5}
+        - {x: -148, y: 48.5}
+        - {x: -149, y: 48.5}
+        - {x: -162, y: 35.5}
+        - {x: -162, y: -51.5}
+        - {x: 153, y: -51.5}
+        - {x: 155, y: -46.5}
+        - {x: 157, y: -44.5}
     - name: Buttons_Board_15
       rect:
         serializedVersion: 2
@@ -228,8 +370,19 @@ TextureImporter:
         width: 102
         height: 101
       alignment: 0
-      pivot: {x: .5, y: .5}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: -32, y: 50.5}
+        - {x: -36, y: 46.5}
+        - {x: -51, y: 20.5}
+        - {x: -51, y: -20.5}
+        - {x: -46, y: -35.5}
+        - {x: -31, y: -50.5}
+        - {x: 31, y: -50.5}
+        - {x: 51, y: -45.5}
+        - {x: 51, y: 48.5}
+        - {x: 44, y: 50.5}
     - name: Buttons_Board_16
       rect:
         serializedVersion: 2
@@ -238,8 +391,16 @@ TextureImporter:
         width: 102
         height: 104
       alignment: 0
-      pivot: {x: .5, y: .5}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: -34, y: 52}
+        - {x: -49, y: 38}
+        - {x: -51, y: 36}
+        - {x: -51, y: -52}
+        - {x: 41, y: -52}
+        - {x: 51, y: -36}
+        - {x: 51, y: 52}
     - name: Buttons_Board_17
       rect:
         serializedVersion: 2
@@ -248,8 +409,21 @@ TextureImporter:
         width: 324
         height: 103
       alignment: 0
-      pivot: {x: .5, y: .5}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: 159, y: -41.5}
+        - {x: 161, y: -36.5}
+        - {x: 162, y: -34.5}
+        - {x: 162, y: 51.5}
+        - {x: -145, y: 51.5}
+        - {x: -159, y: 37.5}
+        - {x: -160, y: 37.5}
+        - {x: -162, y: 35.5}
+        - {x: -162, y: -51.5}
+        - {x: 153, y: -51.5}
+        - {x: 154, y: -48.5}
+        - {x: 156, y: -46.5}
     - name: Buttons_Board_18
       rect:
         serializedVersion: 2
@@ -258,8 +432,18 @@ TextureImporter:
         width: 102
         height: 102
       alignment: 0
-      pivot: {x: .5, y: .5}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: -44, y: 51}
+        - {x: -51, y: 43}
+        - {x: -51, y: -29}
+        - {x: -39, y: -51}
+        - {x: 37, y: -51}
+        - {x: 50, y: -46}
+        - {x: 51, y: -41}
+        - {x: 51, y: 41}
+        - {x: 44, y: 51}
     - name: Buttons_Board_19
       rect:
         serializedVersion: 2
@@ -268,8 +452,15 @@ TextureImporter:
         width: 102
         height: 104
       alignment: 0
-      pivot: {x: .5, y: .5}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: -34, y: 52}
+        - {x: -51, y: 35}
+        - {x: -51, y: -52}
+        - {x: 41, y: -52}
+        - {x: 51, y: -36}
+        - {x: 51, y: 52}
     - name: Buttons_Board_20
       rect:
         serializedVersion: 2
@@ -278,9 +469,18 @@ TextureImporter:
         width: 324
         height: 104
       alignment: 0
-      pivot: {x: .5, y: .5}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
-  spritePackingTag: 
+      outline:
+      - - {x: 162, y: 52}
+        - {x: -145, y: 52}
+        - {x: -162, y: 35}
+        - {x: -162, y: -52}
+        - {x: 152, y: -52}
+        - {x: 156, y: -46}
+        - {x: 162, y: -34}
+    outline: []
+  spritePackingTag: Buttons
   userData: 
   assetBundleName: 
   assetBundleVariant: 
