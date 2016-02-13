@@ -21,6 +21,8 @@ public class MainMenuManager : MonoBehaviour {
 
 	// list the level names
 	public string[] LevelNames;
+    public Font LevelFont;
+    public int LevelFontSize = 20;
 
 	// reference to the LevelsPanel gameObject where the buttons should be childed
 	public GameObject LevelsPanel;
@@ -80,6 +82,8 @@ public class MainMenuManager : MonoBehaviour {
 			// set the label of the button
 			Text levelButtonLabel = levelButton.GetComponentInChildren<Text>();
 			levelButtonLabel.text = levelname;
+            levelButtonLabel.font = LevelFont;
+            levelButtonLabel.fontSize = LevelFontSize;
 
 			// determine if the button should be interactable based on if the level is unlocked
 			if (PlayerPrefManager.LevelIsUnlocked (levelname)) {

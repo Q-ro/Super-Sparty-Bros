@@ -28,6 +28,16 @@ public class CharacterController2D : MonoBehaviour {
 	[HideInInspector]
 	public bool playerCanMove = true;
 
+    //Attack damage of the player
+    [Range(0.0f,10.0f)]
+    public int attackDamage = 1;
+    //Attack speed of the player
+    [Range(0.0f,2.0f)]
+    public float attackSpeed = 0.2f;
+
+    //public int health;
+    //int _maxHealth;
+
 	// SFXs
 	public AudioClip coinSFX;
 	public AudioClip deathSFX;
