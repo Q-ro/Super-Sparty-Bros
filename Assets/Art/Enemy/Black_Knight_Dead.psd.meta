@@ -1,31 +1,14 @@
 fileFormatVersion: 2
-guid: b933cc4e1dbdc483eb4917c95fc6d81e
-timeCreated: 1452491987
+guid: 38337715e7f384709b8c842457849d02
+timeCreated: 1455838661
 licenseType: Free
 TextureImporter:
   fileIDToRecycleName:
-    21300000: SpartyIdle_0
-    21300002: SpartyIdle_0
-    21300004: SpartyIdle_1
-    21300006: SpartySpriteSheet_2
-    21300008: SpartySpriteSheet_3
-    21300010: SpartySpriteSheet_4
-    21300012: SpartySpriteSheet_5
-    21300014: Sparty_SS_0
-    21300016: Sparty_SS_1
-    21300018: Sparty_SS_2
-    21300020: Sparty_SS_3
-    21300022: Sparty_SS_4
-    21300024: Sparty_SS_5
-    21300026: Sparty_Idle1
-    21300028: Sparty_Idle2
-    21300030: Sparty_Walk1
-    21300032: Sparty_Walk2
-    21300034: Sparty_Walk3
-    21300036: Sparty_Jump0
-    21300038: Sparty_Jump1
-    21300040: Sparty_Jump2
-    21300042: Sparty_Jump3
+    21300000: Black_Knight_Dead_0
+    21300002: Black_Knight_Dead_1
+    21300004: Black_Knight_Dead_2
+    21300006: Black_Knight_Dead_3
+    21300008: Black_Knight_Dead_4
   serializedVersion: 2
   mipmaps:
     mipMapMode: 0
@@ -45,7 +28,7 @@ TextureImporter:
   grayScaleToAlpha: 0
   generateCubemap: 0
   cubemapConvolution: 0
-  cubemapConvolutionSteps: 8
+  cubemapConvolutionSteps: 7
   cubemapConvolutionExponent: 1.5
   seamlessCubemap: 0
   textureFormat: -3
@@ -69,15 +52,10 @@ TextureImporter:
   spritePixelsToUnits: 16
   alphaIsTransparency: 1
   textureType: 8
-  buildTargetSettings:
-  - buildTarget: Standalone
-    maxTextureSize: 2048
-    textureFormat: -3
-    compressionQuality: 50
-    allowsAlphaSplitting: 0
+  buildTargetSettings: []
   spriteSheet:
     sprites:
-    - name: Sparty_Idle1
+    - name: Black_Knight_Dead_0
       rect:
         serializedVersion: 2
         x: 0
@@ -85,10 +63,10 @@ TextureImporter:
         width: 16
         height: 16
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
-    - name: Sparty_Idle2
+    - name: Black_Knight_Dead_1
       rect:
         serializedVersion: 2
         x: 16
@@ -96,10 +74,10 @@ TextureImporter:
         width: 16
         height: 16
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
-    - name: Sparty_Walk1
+    - name: Black_Knight_Dead_2
       rect:
         serializedVersion: 2
         x: 32
@@ -107,10 +85,10 @@ TextureImporter:
         width: 16
         height: 16
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
-    - name: Sparty_Walk2
+    - name: Black_Knight_Dead_3
       rect:
         serializedVersion: 2
         x: 48
@@ -118,10 +96,10 @@ TextureImporter:
         width: 16
         height: 16
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
-    - name: Sparty_Walk3
+    - name: Black_Knight_Dead_4
       rect:
         serializedVersion: 2
         x: 64
@@ -129,44 +107,11 @@ TextureImporter:
         width: 16
         height: 16
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-    - name: Sparty_Jump1
-      rect:
-        serializedVersion: 2
-        x: 80
-        y: 0
-        width: 16
-        height: 16
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-    - name: Sparty_Jump2
-      rect:
-        serializedVersion: 2
-        x: 96
-        y: 0
-        width: 16
-        height: 16
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-    - name: Sparty_Jump3
-      rect:
-        serializedVersion: 2
-        x: 112
-        y: 0
-        width: 16
-        height: 16
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
     outline: []
-  spritePackingTag: Player
+  spritePackingTag: Enemies
   userData: 
   assetBundleName: 
   assetBundleVariant: 

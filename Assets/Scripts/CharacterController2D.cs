@@ -23,10 +23,13 @@ public class CharacterController2D : MonoBehaviour {
 	// Transform just below feet for checking if player is grounded
 	public Transform groundCheck;
 
-	// player can move?
+	// can player move?
 	// we want this public so other scripts can access it but we don't want to show in editor as it might confuse designer
 	[HideInInspector]
 	public bool playerCanMove = true;
+	// Is the player invisible ?
+	[HideInInspector]
+	public bool playerIsInvinsible = false;
 
     //Attack damage of the player
     [Range(0.0f,10.0f)]
@@ -44,6 +47,8 @@ public class CharacterController2D : MonoBehaviour {
 	public AudioClip fallSFX;
 	public AudioClip jumpSFX;
 	public AudioClip victorySFX;
+	public AudioClip swordAttackSFX;
+	public AudioClip swordClinkSFX;
 
 	public CamShakeSimple cam;
 
@@ -64,6 +69,7 @@ public class CharacterController2D : MonoBehaviour {
 	bool _facingRight = true;
 	bool _isGrounded = false;
 	bool _isRunning = false;
+	bool _isAttacking= false;
 	bool _canDoubleJump = false;
 
 	// store the layer the player is on (setup in Awake)
@@ -161,6 +167,29 @@ public class CharacterController2D : MonoBehaviour {
 		// Change the actual velocity on the rigidbody
 		_rigidbody.velocity = new Vector2(_vx * moveSpeed, _vy);
 
+		if (CrossPlatformInputManager.GetButtonDown ("Attack") && !_isAttacking) 
+		{
+			//If the player is grounded and pressing the attack button do a grounded attack
+			if (_isGrounded) {
+				_isAttacking = true;
+				playerIsInvinsible = true;
+				StartCoroutine (PlayerGroundedAttack ());
+			} 
+			else 
+			{
+				//If the player is in the air and pressing the attack button and the down button do a ground pound attack
+				if (CrossPlatformInputManager.GetAxisRaw("Vertical") < 0)
+				{
+					StartCoroutine (PlayerGroundpoundAttack ());
+				}
+				//If the player is in the air and pressing the attack button do an air attack
+				else 
+				{
+					StartCoroutine (PlayerAirAttack ());
+				}
+			}
+		}
+
 		// if moving up then don't collide with platform layer
 		// this allows the player to jump up through things on the platform layer
 		// NOTE: requires the platforms to be on a layer named "Platform"
@@ -244,7 +273,7 @@ public class CharacterController2D : MonoBehaviour {
 
 	// public function to apply damage to the player
 	public void ApplyDamage (int damage) {
-		if (playerCanMove) {
+		if (playerCanMove && !playerIsInvinsible) {
 			playerHealth -= damage;
 
 			//CamShakeSimple camrea = GameObject.Find ("Main_Camera").GetComponent<Camera>().gameObject.GetComponents<CamShakeSimple>();
@@ -265,6 +294,28 @@ public class CharacterController2D : MonoBehaviour {
 			PlaySound(fallSFX);
 			StartCoroutine (KillPlayer ());
 		}
+	}
+
+	IEnumerator PlayerGroundedAttack()
+	{
+		//Debug.Log ("ground atacking");
+		_animator.SetTrigger ("GroundAttack");
+		PlaySound(swordAttackSFX);
+		yield return new WaitForSeconds (attackSpeed);
+		_isAttacking = false;
+		playerIsInvinsible = false;
+	}
+
+	IEnumerator PlayerAirAttack()
+	{
+		Debug.Log ("Air atacking");
+		yield return new WaitForSeconds (attackSpeed);
+	}
+
+	IEnumerator PlayerGroundpoundAttack()
+	{
+		Debug.Log ("Air pound atacking");
+		yield return new WaitForSeconds (attackSpeed);
 	}
 
 	// coroutine to kill the player

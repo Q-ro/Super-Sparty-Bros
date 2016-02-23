@@ -12,9 +12,6 @@ public class GraphicHelper : MonoBehaviour {
 	[Range(0.0f,1.0f)]
 	public float slowmoTime =0.2f;
 
-
-	public ParticleSystem smokeEffect;
-
 	void Awake()
 	{
 		// Register the singleton
@@ -26,15 +23,14 @@ public class GraphicHelper : MonoBehaviour {
 		Instance = this;
 	}
 
-
 	/// <summary>
-	/// Create an explosion at the given location
+	/// Create a particle effect at the given location
 	/// </summary>
 	/// <param name="position"></param>
-	public void Explosion(Vector3 position)
+	public void CreateParticleEffect(Vector3 position, ParticleSystem specialEffect)
 	{
-		//Set smoke particles
-		instantiate(smokeEffect, position);
+		//Set particles
+		instantiate(specialEffect, position);
 	}
 
 	/// <summary>
@@ -87,7 +83,14 @@ public class GraphicHelper : MonoBehaviour {
 	}
 
 
-
+	/// <summary>
+	///  calls Coroutine to create a flash effect on all sprite renderers passed in to the function
+	/// </summary>
+	/// <param name="sprites">Sprites.</param>
+	/// <param name="numTimes">Number times to flash</param>
+	/// <param name="delay">Delay between flashes</param>
+	/// <param name="disable">if you want to disable the renderer instead of change alpha</param>
+	/// <param name="colors">A float array that describes color canges as (R,G,B) values </param>
 	public void FlashingSprites(SpriteRenderer[] sprites, int numTimes, float delay, bool disable = false)
 	{
 		StartCoroutine(CoFlashingSprites(sprites, numTimes, delay, disable));

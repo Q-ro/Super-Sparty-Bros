@@ -11,13 +11,18 @@ public class Enemy : MonoBehaviour {
 	[Tooltip("Child game object that handles the stun check")]
 	public GameObject stunnedCheck; // what gameobject is the stunnedCheck
 
+	[Tooltip("Particle based pretty explision")]
+	public ParticleSystem bloodParticle; // Particle based blood effect to be shown upon death
+
 	[HideInInspector]
 	public float stunnedTime = 3f;   // how long to wait while stunned
 
 	public string stunnedLayer = "StunnedEnemy";  // name of the layer to put enemy on when stunned
+	public string deadLayer = "DeadEnemy";  // name of the layer to put enemy on when stunned
 	public string playerLayer = "Player";  // name of the layer to put enemy on when stunned
 	
-	public bool isStunned = false;  // flag for isStunned
+	public bool _isStunned = false;  // flag for isStunned
+	public bool _isDead = false;
 	
 	public GameObject[] myWaypoints; // to define the movement waypoints
 
@@ -31,6 +36,7 @@ public class Enemy : MonoBehaviour {
 	// SFXs
 	public AudioClip stunnedSFX;
 	public AudioClip attackSFX;
+	public AudioClip deadSFX;
 	
 	// private variables below
 	
@@ -94,7 +100,7 @@ public class Enemy : MonoBehaviour {
 	// if not stunned then move the enemy when time is > _moveTime
 	void Update () 
 	{
-		if (!isStunned)
+		if (!_isStunned && !_isDead)
 		{
 			if(moveSpeed >0)
 			{
@@ -123,7 +129,6 @@ public class Enemy : MonoBehaviour {
 			if (Mathf.Abs(_vx) <= 0.05f) {
 				// At waypoint so stop moving
 				_rigidbody.velocity = new Vector2(0, 0);
-				
 				// increment to next index in array
 				_myWaypointIndex++;
 				
@@ -166,13 +171,13 @@ public class Enemy : MonoBehaviour {
 	// Attack player
 	void OnTriggerEnter2D(Collider2D collision)
 	{
-		if ((collision.tag == "Player") && !isStunned)
+		if ((collision.tag == "Player") && !_isStunned && !_isDead)
 		{
 			//Slow down time
 			GraphicHelper.Instance.Slowmo ();
 
 			CharacterController2D player = collision.gameObject.GetComponent<CharacterController2D>();
-			if (player.playerCanMove) {
+			if (player.playerCanMove && !player.playerIsInvinsible) {
 
 				if (this.tag == "Enemy") {
 					// Make sure the enemy is facing the player on attack
@@ -191,6 +196,12 @@ public class Enemy : MonoBehaviour {
 				// stop to enjoy killing the player
 				_moveTime = Time.time + stunnedTime;
 			}
+		}
+
+		if (collision.tag == "PlayerAttack" && !_isDead)
+		{
+			CharacterController2D player = collision.GetComponentInParent<CharacterController2D>();
+			Die (player.swordClinkSFX);
 		}
 	}
 	
@@ -218,13 +229,37 @@ public class Enemy : MonoBehaviour {
 	{
 		_audio.PlayOneShot(clip);
 	}
-	
+
+	public void Die(AudioClip swordClink)
+	{
+		_isDead = true;	
+
+		// provide the player with feedback that enemy is stunned
+		playSound(deadSFX);
+		playSound (swordClink);
+		_animator.SetBool ("Dead", _isDead);
+
+		// stop moving
+		_rigidbody.velocity = new Vector2(0, 0);
+
+		SpriteRenderer[] sprites = GetComponentsInChildren<SpriteRenderer>();
+		GraphicHelper.Instance.FlashingSprites(sprites, 2, 0.1f);
+
+		GraphicHelper.Instance.CreateParticleEffect (this.transform.position,bloodParticle);
+		GraphicHelper.Instance.Slowmo ();
+		//Destroy (this.gameObject);
+
+		// switch layer to dead layer so no collisions with the player while dead
+		this.gameObject.layer = _stunnedLayer;
+		stunnedCheck.layer = _stunnedLayer;
+	}
+
 	// setup the enemy to be stunned
 	public void Stunned()
 	{
-		if (!isStunned) 
+		if (!_isStunned) 
 		{
-			isStunned = true;
+			_isStunned = true;
 			
 			// provide the player with feedback that enemy is stunned
 			playSound(stunnedSFX);
@@ -251,7 +286,7 @@ public class Enemy : MonoBehaviour {
 		yield return new WaitForSeconds(stunnedTime); 
 		
 		// no longer stunned
-		isStunned = false;
+		_isStunned = false;
 		
 		// switch layer back to regular layer for regular collisions with the player
 		this.gameObject.layer = _enemyLayer;

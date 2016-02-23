@@ -60,7 +60,7 @@ public class Projectile : MonoBehaviour {
 		}
 	}
 
-	// Destroys the game object after a short delay allowing the "destoy animation" to play
+	// Destroys the game object after a short delay allowing the "destroy animation" to play
 	IEnumerator DestroyObject()
 	{
 		yield return new WaitForSeconds (collisionTimeToDestroy);

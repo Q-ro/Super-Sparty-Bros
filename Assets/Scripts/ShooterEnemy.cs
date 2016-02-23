@@ -25,6 +25,15 @@ public class ShooterEnemy : MonoBehaviour {
 	float _delayTimer = 0f; //Keeps track of how much time is left before starting to attack
 	Animator _animator; //A refference to this gameobject's animator
 
+	bool _isOnCamera = false;
+
+	void OnBecameInvisible() {
+		_isOnCamera = false;
+	}
+	void OnBecameVisible() {
+		_isOnCamera = true;
+	}
+
 	void Awake()
 	{
 		_animator = this.GetComponent<Animator> ();
@@ -37,35 +46,31 @@ public class ShooterEnemy : MonoBehaviour {
 	// Update is called once per frame
 	void Update () 
 	{
-		// If it's not time yet to start attacking, keep waiting to attack
-		if (_delayTimer < startDelay)
-		{
-			_delayTimer += Time.deltaTime;
-		}
+		
+			// If it's not time yet to start attacking, keep waiting to attack
+			if (_delayTimer < startDelay) {
+				_delayTimer += Time.deltaTime;
+			}
 		// Else start counting how much time is left for the next shot to be fired
-		else 
-		{
-			_attackTimer += Time.deltaTime;
-		}
+		else {
+				_attackTimer += Time.deltaTime;
+			}
 
-		//If it's time to shot and the enemy is not stunned
-		if (_attackTimer >= attackSpeed && this.gameObject.layer != LayerMask.NameToLayer("StunnedEnemy"))
-		{
-			//reset the counter so that we can keep track of when it's time to shot again
-			_attackTimer = 0;
+			//If it's time to shot and the enemy is not stunned
+			if (_attackTimer >= attackSpeed && this.gameObject.layer != LayerMask.NameToLayer ("StunnedEnemy")) {
+				//reset the counter so that we can keep track of when it's time to shot again
+				_attackTimer = 0;
 
 
-			//Start the attacking animation
-			_animator.SetTrigger ("Attack");
+				//Start the attacking animation
+				_animator.SetTrigger ("Attack");
 
-		}
-
-
+			}
 	}
 
 	public void shootProjectile()
 	{
-		if (shootSFX != null) {
+		if (shootSFX != null && _isOnCamera) {
 			this.GetComponent<Enemy> ().playSound (shootSFX);
 		}
 		//Instantiate the projectile and place it in the right place
@@ -79,7 +84,7 @@ public class ShooterEnemy : MonoBehaviour {
 			projectile.GetComponent<Rigidbody2D> ().velocity = new Vector2 (projectileSpeed,(Random.value*shotJitter));
 		}
 
-		// Not need, plus sime weird bug is happening and i dont have time to figure it out at this tiem, gonna look into it later
+		// Not need, plus some weird bug is happening and i dont have time to figure it out at this time, gonna look into it later
 		//			if (shootingDirection == ShootingDirection.Up) {
 		//				projectile.GetComponent<Rigidbody2D> ().velocity = new Vector2 (0,projectileSpeed);
 		//				projectile.transform.Rotate(0, 90, 0);
