@@ -83,7 +83,7 @@ public class Enemy : MonoBehaviour {
 		}
 		
 		// setup moving defaults
-		_moveTime = 0f;
+		_moveTime = 1f;
 		_moving = true;
 		
 		// determine the enemies specified layer
@@ -126,7 +126,7 @@ public class Enemy : MonoBehaviour {
 			_vx = myWaypoints[_myWaypointIndex].transform.position.x-_transform.position.x;
 			
 			// if the enemy is close enough to waypoint, make it's new target the next waypoint
-			if (Mathf.Abs(_vx) <= 0.05f) {
+			if (Mathf.Abs(_vx) <= 0.1f) {
 				// At waypoint so stop moving
 				_rigidbody.velocity = new Vector2(0, 0);
 				// increment to next index in array

@@ -185,6 +185,8 @@ public class CharacterController2D : MonoBehaviour {
 				//If the player is in the air and pressing the attack button do an air attack
 				else 
 				{
+                    _isAttacking = true;
+                    playerIsInvinsible = true;
 					StartCoroutine (PlayerAirAttack ());
 				}
 			}
@@ -309,7 +311,11 @@ public class CharacterController2D : MonoBehaviour {
 	IEnumerator PlayerAirAttack()
 	{
 		Debug.Log ("Air atacking");
-		yield return new WaitForSeconds (attackSpeed);
+        _animator.SetTrigger("AirAttack");
+        PlaySound(swordAttackSFX);
+        yield return new WaitForSeconds(attackSpeed);
+        _isAttacking = false;
+        playerIsInvinsible = false;
 	}
 
 	IEnumerator PlayerGroundpoundAttack()

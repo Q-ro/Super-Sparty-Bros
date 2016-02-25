@@ -1,6 +1,6 @@
 fileFormatVersion: 2
 guid: b933cc4e1dbdc483eb4917c95fc6d81e
-timeCreated: 1455575933
+timeCreated: 1456392371
 licenseType: Free
 TextureImporter:
   fileIDToRecycleName:
@@ -32,6 +32,11 @@ TextureImporter:
     21300050: Ninja_Attack4
     21300052: Ninja_Attack5
     21300054: Ninja_Attack6
+    21300056: Ninja_AirAttack1
+    21300058: Ninja_AirAttack2
+    21300060: Ninja_AirAttack3
+    21300062: Ninja_AirAttack4
+    21300064: Ninja_AirAttack5
   serializedVersion: 2
   mipmaps:
     mipMapMode: 0
@@ -230,6 +235,61 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 208
+        y: 0
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+    - name: Ninja_AirAttack1
+      rect:
+        serializedVersion: 2
+        x: 224
+        y: 0
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+    - name: Ninja_AirAttack2
+      rect:
+        serializedVersion: 2
+        x: 240
+        y: 0
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+    - name: Ninja_AirAttack3
+      rect:
+        serializedVersion: 2
+        x: 256
+        y: 0
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+    - name: Ninja_AirAttack4
+      rect:
+        serializedVersion: 2
+        x: 272
+        y: 0
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+    - name: Ninja_AirAttack5
+      rect:
+        serializedVersion: 2
+        x: 288
         y: 0
         width: 16
         height: 16
