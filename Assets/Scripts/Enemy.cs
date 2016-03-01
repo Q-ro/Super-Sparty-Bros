@@ -37,7 +37,8 @@ public class Enemy : MonoBehaviour {
 	public AudioClip stunnedSFX;
 	public AudioClip attackSFX;
 	public AudioClip deadSFX;
-	
+
+    
 	// private variables below
 	
 	// store references to components on the gameObject
@@ -45,7 +46,10 @@ public class Enemy : MonoBehaviour {
 	Rigidbody2D _rigidbody;
 	Animator _animator;
 	AudioSource _audio;
-	
+    IEnumerator _coFlashingSprites; //a reference to the flashing sprites corutine
+    IEnumerator _coStunned; //a reference to the flashing sprites corutine
+    IEnumerator _coStand; //a reference to the flashing sprites corutine
+
 	// movement tracking
 	[SerializeField]
 	int _myWaypointIndex = 0; // used as index for My_Waypoints
@@ -58,6 +62,9 @@ public class Enemy : MonoBehaviour {
 
 	// store the layer number the enemy should be moved to when stunned
 	int _stunnedLayer;
+
+    // store the layer number the enemy should be moved to when dies
+    int _deadLayer;
 	
 	void Awake() {
 		// get a reference to the components we are going to be changing and store a reference for efficiency purposes
@@ -92,9 +99,15 @@ public class Enemy : MonoBehaviour {
 		// determine the stunned enemy layer number
 		_stunnedLayer = LayerMask.NameToLayer(stunnedLayer);
 
+        // determine the stunned enemy layer number
+        _deadLayer = LayerMask.NameToLayer(deadLayer);
+
 		// make sure collision are off between the playerLayer and the stunnedLayer
 		// which is where the enemy is placed while stunned
-		Physics2D.IgnoreLayerCollision(LayerMask.NameToLayer(playerLayer), _stunnedLayer, true); 
+		Physics2D.IgnoreLayerCollision(LayerMask.NameToLayer(playerLayer), _stunnedLayer, true);
+        Physics2D.IgnoreLayerCollision(LayerMask.NameToLayer(playerLayer), _deadLayer, true);
+        Physics2D.IgnoreLayerCollision(LayerMask.NameToLayer("Enemy"), _deadLayer, true);
+        Physics2D.IgnoreLayerCollision(LayerMask.NameToLayer("Enemy"), _stunnedLayer, true); 
 	}
 	
 	// if not stunned then move the enemy when time is > _moveTime
@@ -112,6 +125,12 @@ public class Enemy : MonoBehaviour {
 				}
 			}
 		}
+
+        if (_isStunned || _isDead)
+        {
+            _rigidbody.isKinematic = true;
+        }
+
 	}
 	
 	// Move the enemy through its rigidbody based on its waypoints
@@ -232,7 +251,24 @@ public class Enemy : MonoBehaviour {
 
 	public void Die(AudioClip swordClink)
 	{
-		_isDead = true;	
+		_isDead = true;
+        if(_coFlashingSprites != null)
+        {
+            StopCoroutine(_coFlashingSprites);
+
+            if(_coStand != null)
+            {
+                StopCoroutine(_coStand);
+            }
+
+            //"Normalize" sprite's alpha
+            SpriteRenderer[] normalizeSprites = GetComponentsInChildren<SpriteRenderer>();
+            GraphicHelper.Instance.NormalizeSprites(normalizeSprites, false);
+        }
+        
+        // switch layer to dead layer so no collisions with the player while dead
+        this.gameObject.layer = _deadLayer;
+        stunnedCheck.layer = _deadLayer;
 
 		// provide the player with feedback that enemy is stunned
 		playSound(deadSFX);
@@ -249,15 +285,13 @@ public class Enemy : MonoBehaviour {
 		GraphicHelper.Instance.Slowmo ();
 		//Destroy (this.gameObject);
 
-		// switch layer to dead layer so no collisions with the player while dead
-		this.gameObject.layer = _stunnedLayer;
-		stunnedCheck.layer = _stunnedLayer;
+
 	}
 
 	// setup the enemy to be stunned
 	public void Stunned()
 	{
-		if (!_isStunned) 
+		if (!_isStunned && !_isDead) 
 		{
 			_isStunned = true;
 			
@@ -273,27 +307,35 @@ public class Enemy : MonoBehaviour {
 			stunnedCheck.layer = _stunnedLayer;
 
 			SpriteRenderer[] sprites = GetComponentsInChildren<SpriteRenderer>();
-			GraphicHelper.Instance.FlashingSprites(sprites, 14, 0.1f);
+			_coFlashingSprites = GraphicHelper.Instance.FlashingSprites(sprites, 14, 0.1f);
+
+            StartCoroutine(_coFlashingSprites);
 
 			// start coroutine to stand up eventually
-			StartCoroutine (Stand ());
+            _coStand = Stand();
+            StartCoroutine(_coStand);
 		}
 	}
 	
 	// coroutine to unstun the enemy and stand back up
 	IEnumerator Stand()
 	{
-		yield return new WaitForSeconds(stunnedTime); 
-		
-		// no longer stunned
-		_isStunned = false;
-		
-		// switch layer back to regular layer for regular collisions with the player
-		this.gameObject.layer = _enemyLayer;
-		stunnedCheck.layer = _enemyLayer;
-		
-		// provide the player with feedback
-		_animator.SetTrigger("Stand");
+        if (!_isDead)
+        {
+
+		yield return new WaitForSeconds(stunnedTime);
+
+        
+            // no longer stunned
+            _isStunned = false;
+
+            // switch layer back to regular layer for regular collisions with the player
+            this.gameObject.layer = _enemyLayer;
+            stunnedCheck.layer = _enemyLayer;
+
+            // provide the player with feedback
+            _animator.SetTrigger("Stand");
+        }
 	}
 		
 }

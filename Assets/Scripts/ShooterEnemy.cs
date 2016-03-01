@@ -46,26 +46,33 @@ public class ShooterEnemy : MonoBehaviour {
 	// Update is called once per frame
 	void Update () 
 	{
-		
-			// If it's not time yet to start attacking, keep waiting to attack
-			if (_delayTimer < startDelay) {
-				_delayTimer += Time.deltaTime;
-			}
-		// Else start counting how much time is left for the next shot to be fired
-		else {
-				_attackTimer += Time.deltaTime;
-			}
 
-			//If it's time to shot and the enemy is not stunned
-			if (_attackTimer >= attackSpeed && this.gameObject.layer != LayerMask.NameToLayer ("StunnedEnemy")) {
-				//reset the counter so that we can keep track of when it's time to shot again
-				_attackTimer = 0;
+        if (!GetComponent<Enemy>()._isDead && !GetComponent<Enemy>()._isStunned)
+        {
+
+            // If it's not time yet to start attacking, keep waiting to attack
+            if (_delayTimer < startDelay)
+            {
+                _delayTimer += Time.deltaTime;
+            }
+            // Else start counting how much time is left for the next shot to be fired
+            else
+            {
+                _attackTimer += Time.deltaTime;
+            }
+
+            //If it's time to shot and the enemy is not stunned
+            if (_attackTimer >= attackSpeed && this.gameObject.layer != LayerMask.NameToLayer("StunnedEnemy"))
+            {
+                //reset the counter so that we can keep track of when it's time to shot again
+                _attackTimer = 0;
 
 
-				//Start the attacking animation
-				_animator.SetTrigger ("Attack");
+                //Start the attacking animation
+                _animator.SetTrigger("Attack");
 
-			}
+            }
+        }
 	}
 
 	public void shootProjectile()

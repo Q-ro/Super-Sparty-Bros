@@ -8,9 +8,16 @@ public class CharacterController2D : MonoBehaviour {
 	// player controls
 	[Range(0.0f, 10.0f)] // create a slider in the editor and set limits on moveSpeed
 	public float moveSpeed = 3f;
-
-	[Range(0.0f, 20.0f)] // create a slider in the editor and set limits on moveSpeed
+    
+    /*
+	[Range(0.0f, 20.0f)] // create a slider in the editor and set limits on runSpeed
 	public float runSpeed = 5f;
+    */
+
+    [Range(0.0f, 20.0f)] // create a slider in the editor and set limits on groundpoundMovespeed
+    public float groundpoundMovespeed = 1.2f;
+    [Range(0.0f, 20.0f)] // create a slider in the editor and set the downward speed of the groundpound
+    public float groundpoundFallSpeed = 8f;
 
 	public float jumpForce = 600f;
 
@@ -71,6 +78,9 @@ public class CharacterController2D : MonoBehaviour {
 	bool _isRunning = false;
 	bool _isAttacking= false;
 	bool _canDoubleJump = false;
+    public bool _isGroundpounding = false;
+
+    Transform _groundpoundAttack;
 
 	// store the layer the player is on (setup in Awake)
 	int _playerLayer;
@@ -83,6 +93,9 @@ public class CharacterController2D : MonoBehaviour {
 		_transform = GetComponent<Transform> ();
 		
 		_rigidbody = GetComponent<Rigidbody2D> ();
+
+        _groundpoundAttack = transform.FindChild("Groundpound_Attack");
+
 		if (_rigidbody==null) // if Rigidbody is missing
 			Debug.LogError("Rigidbody2D component missing from this gameobject");
 		
@@ -138,10 +151,19 @@ public class CharacterController2D : MonoBehaviour {
 		// Set the grounded animation states
 		_animator.SetBool("Grounded", _isGrounded);
 
-		// Reset Doublejump
+		
 		if (_isGrounded) 
 		{
+            // Reset Doublejump
 			_canDoubleJump = true;
+
+            // Reset the ground pound
+            if(_isGroundpounding)
+            { 
+                _isGroundpounding = false;
+                playerIsInvinsible = false;
+                _groundpoundAttack.gameObject.SetActive(false);
+            }
 		}
 
 		// If grounded AND jump button pressed, then allow the player to jump
@@ -165,7 +187,14 @@ public class CharacterController2D : MonoBehaviour {
 		}
 
 		// Change the actual velocity on the rigidbody
-		_rigidbody.velocity = new Vector2(_vx * moveSpeed, _vy);
+        if (_isGroundpounding)
+        {
+            _rigidbody.velocity = new Vector2(_vx * groundpoundMovespeed, _vy * groundpoundFallSpeed);
+        }
+        else
+        {
+            _rigidbody.velocity = new Vector2(_vx * moveSpeed, _vy);
+        }
 
 		if (CrossPlatformInputManager.GetButtonDown ("Attack") && !_isAttacking) 
 		{
@@ -178,9 +207,13 @@ public class CharacterController2D : MonoBehaviour {
 			else 
 			{
 				//If the player is in the air and pressing the attack button and the down button do a ground pound attack
-				if (CrossPlatformInputManager.GetAxisRaw("Vertical") < 0)
+				if (CrossPlatformInputManager.GetAxisRaw("Vertical") < 0 && !_isGroundpounding)
 				{
-					StartCoroutine (PlayerGroundpoundAttack ());
+                    //Disable ground pound
+                    _isGroundpounding = true;
+                    playerIsInvinsible = true;
+                    _groundpoundAttack.gameObject.SetActive(true);
+                    _animator.SetTrigger("GroudPounding");
 				}
 				//If the player is in the air and pressing the attack button do an air attack
 				else 
@@ -316,12 +349,6 @@ public class CharacterController2D : MonoBehaviour {
         yield return new WaitForSeconds(attackSpeed);
         _isAttacking = false;
         playerIsInvinsible = false;
-	}
-
-	IEnumerator PlayerGroundpoundAttack()
-	{
-		Debug.Log ("Air pound atacking");
-		yield return new WaitForSeconds (attackSpeed);
 	}
 
 	// coroutine to kill the player

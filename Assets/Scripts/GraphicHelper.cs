@@ -91,11 +91,10 @@ public class GraphicHelper : MonoBehaviour {
 	/// <param name="delay">Delay between flashes</param>
 	/// <param name="disable">if you want to disable the renderer instead of change alpha</param>
 	/// <param name="colors">A float array that describes color canges as (R,G,B) values </param>
-	public void FlashingSprites(SpriteRenderer[] sprites, int numTimes, float delay, bool disable = false)
+	public IEnumerator FlashingSprites(SpriteRenderer[] sprites, int numTimes, float delay, bool disable = false)
 	{
-		StartCoroutine(CoFlashingSprites(sprites, numTimes, delay, disable));
+		return (CoFlashingSprites(sprites, numTimes, delay, disable));
 	}
-
 
 	/// <summary>
 	///  Coroutine to create a flash effect on all sprite renderers passed in to the function
@@ -122,19 +121,38 @@ public class GraphicHelper : MonoBehaviour {
 			yield return new WaitForSeconds(delay);
 
 			// cycle through all sprites
-			for (int i = 0; i < sprites.Length; i++) {
-				if (disable) {
-					// for disabling
-					sprites[i].enabled = true;
-				} else {
-					// for changing the alpha
-					sprites[i].color = new Color(sprites[i].color.r, sprites[i].color.g, sprites[i].color.b, 1);
-				}
-			}
+            //for (int i = 0; i < sprites.Length; i++) {
+            //    if (disable) {
+            //        // for disabling
+            //        sprites[i].enabled = true;
+            //    } else {
+            //        // for changing the alpha
+            //        sprites[i].color = new Color(sprites[i].color.r, sprites[i].color.g, sprites[i].color.b, 1);
+            //    }
+            //}
+
+            NormalizeSprites(sprites, disable);
 
 			// delay specified amount
 			yield return new WaitForSeconds(delay);
 		}
 	}
+
+    public void NormalizeSprites(SpriteRenderer[] sprites, bool disable)
+    {
+        for (int i = 0; i < sprites.Length; i++)
+        {
+            if (disable)
+            {
+                // for disabling
+                sprites[i].enabled = true;
+            }
+            else
+            {
+                // for changing the alpha
+                sprites[i].color = new Color(sprites[i].color.r, sprites[i].color.g, sprites[i].color.b, 1);
+            }
+        }
+    }
 }
 	
