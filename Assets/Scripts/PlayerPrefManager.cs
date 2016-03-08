@@ -69,6 +69,16 @@ public static class PlayerPrefManager {
 		return (PlayerPrefs.HasKey(levelName));
 	}
 
+    public static string GetSelectedCharacter()
+    {
+        return PlayerPrefs.GetString("PlayerCharacter");
+    }
+
+    public static void SetSelectedCharacter(string playerCharacter)
+    {
+        PlayerPrefs.SetString("PlayerCharacter",playerCharacter);
+    }
+
 	// output the defined Player Prefs to the console
 	public static void ShowPlayerPrefs() {
 		// store the PlayerPref keys to output to the console

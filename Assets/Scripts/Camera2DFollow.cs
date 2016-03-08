@@ -21,18 +21,25 @@ namespace UnityStandardAssets._2D
         // Use this for initialization
         private void Start()
         {
-            m_LastTargetPosition = target.position;
-            m_OffsetZ = (transform.position - target.position).z;
+            
+
+        }
+
+        public void SetUpCameraTarget(Transform player)
+        {
+            m_LastTargetPosition = player.position;
+            m_OffsetZ = (transform.position - player.position).z;
             transform.parent = null;
+            target = player;
 
-			// if target not set, then set it to the player
-			if (target==null) {
-				target = GameObject.FindGameObjectWithTag("Player").transform;
-			}
+            // if target not set, then set it to the player
+            if (target == null)
+            {
+                target = GameObject.FindGameObjectWithTag("Player").transform;
+            }
 
-			if (target==null)
-				Debug.LogError("Target not set on Camera2DFollow.");
-
+            if (target == null)
+                Debug.LogError("Target not set on Camera2DFollow.");
         }
 
         // Update is called once per frame

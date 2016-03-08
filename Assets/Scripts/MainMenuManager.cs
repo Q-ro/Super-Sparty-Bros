@@ -12,6 +12,7 @@ public class MainMenuManager : MonoBehaviour {
 	public GameObject _MainMenu;
 	public GameObject _LevelsMenu;
 	public GameObject _AboutMenu;
+    public GameObject _CharacterSelect;
 
 	// references to Button GameObjects
 	public GameObject MenuDefaultButton;
@@ -35,6 +36,8 @@ public class MainMenuManager : MonoBehaviour {
 
 	// store the initial title so we can set it back
 	private string _mainTitle;
+
+    private string _levelToLoad;
 
 	// init the menu
 	void Awake()
@@ -133,6 +136,7 @@ public class MainMenuManager : MonoBehaviour {
 		_MainMenu.SetActive (false);
 		_AboutMenu.SetActive(false);
 		_LevelsMenu.SetActive(false);
+        _CharacterSelect.SetActive(false);
 
 		// turn on desired menu and set default selected button for controller input
 		switch(name) {
@@ -140,32 +144,53 @@ public class MainMenuManager : MonoBehaviour {
 			_MainMenu.SetActive (true);
 			EventSystem.current.SetSelectedGameObject (MenuDefaultButton);
 			titleText.text = _mainTitle;
-			break;
+		break;
 		case "LevelSelect":
 			_LevelsMenu.SetActive(true);
 			EventSystem.current.SetSelectedGameObject (LevelSelectDefaultButton);
 			titleText.text = "Level Select";
-			break;
+		break;
 		case "About":
 			_AboutMenu.SetActive(true);
 			EventSystem.current.SetSelectedGameObject (AboutDefaultButton);
 			titleText.text = "About";
-			break;
+		break;
+        case "CharacterSelect":
+            _CharacterSelect.SetActive(true);
+        break;
+
 		}
 	}
 
 	// load the specified Unity level
-	public void loadLevel(string leveltoLoad)
+	public void loadLevel(string levelToLoad)
 	{
 		// start new game so initialize player state
 		PlayerPrefManager.ResetPlayerState(startLives,false);
 
 		// load the specified level
-		SceneManager.LoadScene (leveltoLoad);
+		SceneManager.LoadScene (levelToLoad);
 		//Application.LoadLevel (leveltoLoad);
 
 	}
 
+    public void CharacterSelect(string Character)
+    {
+        PlayerPrefManager.SetSelectedCharacter(Character);
+
+        //Debug.Log("you have selectede : " + Character + " it was saved as : " + PlayerPrefManager.GetSelectedCharacter());
+
+        loadLevel(_levelToLoad);
+
+    }
+
+
+    public void SaveLevelToLoad(string levelToLoad)
+    {
+        _levelToLoad = levelToLoad;
+        ShowMenu("CharacterSelect");
+
+    }
 	// quit the game
 	public void QuitGame()
 	{

@@ -12,6 +12,10 @@ public class GraphicHelper : MonoBehaviour {
 	[Range(0.0f,1.0f)]
 	public float slowmoTime =0.2f;
 
+    public Camera MainCamera;
+    public float CameraShakeDuration = 0.5f;
+    public float CameraShakeMagnitude = 0.1f;
+
 	void Awake()
 	{
 		// Register the singleton
@@ -153,6 +157,43 @@ public class GraphicHelper : MonoBehaviour {
                 sprites[i].color = new Color(sprites[i].color.r, sprites[i].color.g, sprites[i].color.b, 1);
             }
         }
+    }
+
+    public void PlayShake()
+    {
+        //StopAllCoroutines();
+        StartCoroutine("Shake");
+    }
+
+    IEnumerator Shake()
+    {
+
+        float elapsed = 0.0f;
+
+        Vector3 originalCamPos = Camera.main.transform.position;
+
+        while (elapsed < CameraShakeDuration)
+        {
+
+            elapsed += Time.deltaTime;
+
+            float percentComplete = elapsed / CameraShakeDuration;
+            float damper = 1.0f - Mathf.Clamp(4.0f * percentComplete - 3.0f, 0.0f, 1.0f);
+
+            // map noise to [-1, 1]
+            float x = Random.value * 2.0f - 1.0f;
+            //float x = 1.0f * Mathf.PerlinNoise(Time.time * 1.0f, 0.0F);
+            float y = Random.value * 2.0f - 1.0f;
+            //float y = 1.0f * Mathf.PerlinNoise(Time.time * 1.0f, 0.0F);
+            x *= CameraShakeMagnitude * damper;
+            y *= CameraShakeMagnitude * damper;
+
+            Camera.main.transform.position = new Vector3(x + originalCamPos.x, y + originalCamPos.y, originalCamPos.z);
+
+            yield return null;
+        }
+
+        Camera.main.transform.position = originalCamPos;
     }
 }
 	

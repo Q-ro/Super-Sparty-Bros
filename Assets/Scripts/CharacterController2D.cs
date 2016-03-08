@@ -56,8 +56,7 @@ public class CharacterController2D : MonoBehaviour {
 	public AudioClip victorySFX;
 	public AudioClip swordAttackSFX;
 	public AudioClip swordClinkSFX;
-
-	public CamShakeSimple cam;
+    public AudioClip swordGroundPound;
 
 	// private variables below
 
@@ -209,10 +208,11 @@ public class CharacterController2D : MonoBehaviour {
 				//If the player is in the air and pressing the attack button and the down button do a ground pound attack
 				if (CrossPlatformInputManager.GetAxisRaw("Vertical") < 0 && !_isGroundpounding)
 				{
-                    //Disable ground pound
+                    //Player can only gorund pound once, when he does, is yolo time
                     _isGroundpounding = true;
                     playerIsInvinsible = true;
                     _groundpoundAttack.gameObject.SetActive(true);
+                    PlaySound(swordGroundPound);
                     _animator.SetTrigger("GroudPounding");
 				}
 				//If the player is in the air and pressing the attack button do an air attack
@@ -313,7 +313,7 @@ public class CharacterController2D : MonoBehaviour {
 
 			//CamShakeSimple camrea = GameObject.Find ("Main_Camera").GetComponent<Camera>().gameObject.GetComponents<CamShakeSimple>();
 
-			cam.PlayShake ();
+		    GraphicHelper.Instance.PlayShake ();
 
 			if (playerHealth <= 0) { // player is now dead, so start dying
 				PlaySound(deathSFX);

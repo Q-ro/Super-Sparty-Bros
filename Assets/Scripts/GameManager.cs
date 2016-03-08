@@ -2,6 +2,7 @@
 using System.Collections;
 using UnityEngine.UI; // include UI namespace so can reference UI elements
 using UnityEngine.SceneManagement;
+using UnityStandardAssets._2D;
 
 public class GameManager : MonoBehaviour {
 
@@ -17,6 +18,11 @@ public class GameManager : MonoBehaviour {
 	public int highscore = 0;
 	public int startLives = 3;
 	public int lives = 3;
+    public GameObject ninjaCharacter; //the ninja prefab
+    public GameObject vikingCharacter; // the viking prefab
+    public GameObject playerSpawnpoint; // where the player will be first spawned in the map
+    public Camera MainCamera;
+
 
 	// UI elements to control
 	public Text UIScore;
@@ -35,6 +41,22 @@ public class GameManager : MonoBehaviour {
 		if (Instance == null)
 			Instance = this.GetComponent<GameManager>();
 
+        switch (PlayerPrefManager.GetSelectedCharacter())
+        {
+            case "Ninja":
+                _player = Instantiate(ninjaCharacter, playerSpawnpoint.transform.position, playerSpawnpoint.transform.rotation) as GameObject;
+            break;
+            case "Viking":
+                _player = Instantiate(vikingCharacter, playerSpawnpoint.transform.position, playerSpawnpoint.transform.rotation) as GameObject;
+            break;
+            default:
+                _player = Instantiate(ninjaCharacter, playerSpawnpoint.transform.position, playerSpawnpoint.transform.rotation) as GameObject;
+            break;
+        }
+
+        GameObject.FindGameObjectWithTag("MainCamera").GetComponent<Camera2DFollow>().SetUpCameraTarget(_player.transform);
+
+        
 		// setup all the variables, the UI, and provide errors if things not setup properly.
 		setupDefaults();
 	}
